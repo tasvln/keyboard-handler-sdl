@@ -127,6 +127,7 @@ void close()
 	gWindow = NULL;
 
 	//Quit SDL subsystems
+  IMG_Quit();
 	SDL_Quit();
 }
 
