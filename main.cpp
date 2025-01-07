@@ -23,8 +23,18 @@ bool init()
     }
     else
     {
-      // Get window surface
-      gScreenSurface = SDL_GetWindowSurface(gWindow);
+      // check if the image ext works
+      int imgFlags = IMG_INIT_PNG; 
+      if( !( IMG_Init( imgFlags ) & imgFlags ) )
+      {
+        printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+        success = false;
+      }
+      else
+      {
+        // Get window surface
+        gScreenSurface = SDL_GetWindowSurface( gWindow );
+      }
     }
   }
 
@@ -34,7 +44,7 @@ bool init()
 SDL_Surface* loadSurface( std::string path ) {
   SDL_Surface* optimizedSurface = NULL;
 
-  SDL_Surface* loadedSurface = SDL_LoadBMP( path.c_str() );
+  SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
 
   if( loadedSurface == NULL )
   {
